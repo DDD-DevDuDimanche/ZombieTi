@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMainMenu.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>imports</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Tile.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGame.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface.cpp">
+      <Filter>Gui\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceShop.cpp">
+      <Filter>Gui\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceBox.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{fc6cc64c-5db4-42f3-8ac7-f0318cf3ce87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{b281a36c-6871-4f0a-87e3-6f5a2a7085e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imports">
+      <UniqueIdentifier>{122be086-089c-4212-8336-a0dc148543f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gui">
+      <UniqueIdentifier>{845b1781-7d5a-4485-8685-b2f3253d6998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{e5e9638c-9219-4741-9485-3c6db598f79d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entities">
+      <UniqueIdentifier>{788e1ce4-a949-43fc-a585-039520a98c31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gui\Interfaces">
+      <UniqueIdentifier>{caeedef2-2f99-486b-9891-79b171e90a36}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMainMenu.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>imports</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceShop.h">
+      <Filter>Gui\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>Gui\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceBox.h" />
+  </ItemGroup>
+</Project>

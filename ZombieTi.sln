@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35431.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZombieTi", "ZombieTi\ZombieTi.vcxproj", "{7C78E5D4-F015-431B-A2D9-9C10EE4C65FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C78E5D4-F015-431B-A2D9-9C10EE4C65FA}.Debug|x64.ActiveCfg = Debug|x64
+		{7C78E5D4-F015-431B-A2D9-9C10EE4C65FA}.Debug|x64.Build.0 = Debug|x64
+		{7C78E5D4-F015-431B-A2D9-9C10EE4C65FA}.Release|x64.ActiveCfg = Release|x64
+		{7C78E5D4-F015-431B-A2D9-9C10EE4C65FA}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9626AA8C-2D6A-4B86-AFE9-870D1F69285E}
+	EndGlobalSection
+EndGlobal
