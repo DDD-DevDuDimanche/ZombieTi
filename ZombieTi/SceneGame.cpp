@@ -12,32 +12,29 @@ SceneGame::SceneGame(sf::RenderWindow* _window, std::stack<Scene*>* scenes)
 	_player = new Player(sf::Vector2f(Tile::TILE_SIZE * 9, Tile::TILE_SIZE * 5), _map);
 	_showShop = false;
 	_showBox = false;
+	_showDeath = false;
 
-	_money = 0;
 	_moneyText.setCharacterSize(40);
 	_moneyText.setFillColor(sf::Color(255, 255, 0, 255));
-	_moneyText.setString(std::to_string(_money));
+	_moneyText.setString(std::to_string(0));
 	_moneyText.setPosition({ Tile::TILE_SIZE + 10, _windowReference->getSize().y - Tile::TILE_SIZE });
 	_moneyShape.setSize({ Tile::TILE_SIZE, Tile::TILE_SIZE });
 	_moneyShape.setPosition({ 0, _windowReference->getSize().y - Tile::TILE_SIZE });
 	_moneyShape.setTexture(&TextureLoader::loadTexture("Assets/icon_money.png"));
 	std::cout << "SceneGame::SceneGame::Money Texture loaded" << std::endl;
 
-
-	_hp = 30;
 	_hpText.setCharacterSize(40);
 	_hpText.setFillColor(sf::Color(255, 0, 0, 255));
-	_hpText.setString(std::to_string(_hp));
+	_hpText.setString(std::to_string(30));
 	_hpText.setPosition({ Tile::TILE_SIZE * 5 + 10, _windowReference->getSize().y - Tile::TILE_SIZE });
 	_hpShape.setSize({ Tile::TILE_SIZE, Tile::TILE_SIZE });
 	_hpShape.setTexture(&TextureLoader::loadTexture("Assets/icon_hp.png"));
 	_hpShape.setPosition({ Tile::TILE_SIZE * 4, _windowReference->getSize().y - Tile::TILE_SIZE });
 	std::cout << "SceneGame::SceneGame::HP Texture loaded" << std::endl;
 
-	_bullets = 10;
 	_bulletsText.setCharacterSize(40);
 	_bulletsText.setFillColor(sf::Color(255, 255, 255, 255));
-	_bulletsText.setString(std::to_string(_bullets));
+	_bulletsText.setString(std::to_string(10));
 	_bulletsText.setPosition({ Tile::TILE_SIZE * 8 + 10, _windowReference->getSize().y - Tile::TILE_SIZE });
 	_bulletsShape.setSize({ Tile::TILE_SIZE, Tile::TILE_SIZE });
 	_bulletsShape.setTexture(&TextureLoader::loadTexture("Assets/icon_bullets.png"));
@@ -49,6 +46,7 @@ SceneGame::SceneGame(sf::RenderWindow* _window, std::stack<Scene*>* scenes)
 
 	_shop = new InterfaceShop(_windowReference, _font, &_moneyText, &_hpText, &_bulletsText, _luck);
 	_box = new InterfaceBox(_windowReference, _font, &_moneyText, _luck);
+	_death = new InterfaceDeath(_windowReference, _font);
 }
 
 SceneGame::~SceneGame()
@@ -64,24 +62,29 @@ SceneGame::~SceneGame()
 void SceneGame::update(float& dt)
 {
 	Scene::update(dt);
-	_player->update(dt, getKeyTimeDelay());
 
-	if (!_showShop && !_showBox)
+	int money = std::stoi(_moneyText.getString().toAnsiString());
+	int hp = std::stoi(_hpText.getString().toAnsiString());
+	int bullets = std::stoi(_bulletsText.getString().toAnsiString());
+
+	if (!_showShop && !_showBox && !_showDeath)
 	{
+		// Player movement
+		_player->update(dt, getKeyTimeDelay());
+
 		// Player interaction
 		static bool lastInteraction = false;
 		bool actualInteraction = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter);
+
 		if (!lastInteraction && actualInteraction)
 		{
 			switch (_map->getTile(_player->getPosition())->getType())
 			{
 			case TileType::ZOMBIE:
 				std::cout << "SceneGame::update::Interaction with Zombie Tile" << std::endl;
-				_money += 5;
-				_moneyText.setString(std::to_string(_money));
-				_hp -= 2;
-				_hpText.setString(std::to_string(_hp));
-				_bullets--;
+				_moneyText.setString(std::to_string(money + 5));
+				_hpText.setString(std::to_string(hp - 2));
+				_bulletsText.setString(std::to_string(bullets - 1));
 				break;
 			case TileType::BOX:
 				std::cout << "SceneGame::update::Interaction with Box Tile" << std::endl;
@@ -95,24 +98,43 @@ void SceneGame::update(float& dt)
 				std::cout << "SceneGame::update::Interaction with nothing" << std::endl;
 			}
 		}
+
 		lastInteraction = actualInteraction;
 	}
 
 	if (_showShop)
 	{
 		_shop->update(_mousePositionView);
-		_box->update(_mousePositionView);
 
 		if (_shop->getButtons()["close"]->isPressed())
 		{
-			std::cout << "Close button" << std::endl;
 			_showShop = false;
 		}
+	}
 
-		if (_box->getButtons()["close"]->isPressed())
+	if (_showBox)
+	{
+		_box->update(_mousePositionView);
+
+		if (_box->getButtons()["close"]->isPressed() || 
+			(_box->getButtons().count("confirm") && _box->getButtons()["confirm"]->isPressed()) ||
+			(_box->getButtons().count("cancel") && _box->getButtons()["cancel"]->isPressed()))
 		{
-			std::cout << "Close button" << std::endl;
+			_box->getButtons().erase("confirm");
+			_box->getButtons().erase("cancel");
 			_showBox = false;
+		}
+	}
+
+	if (hp <= 0)
+	{
+		_showDeath = true;
+		_death->update(_mousePositionView);
+
+		if (_death->getButtons()["close"]->isPressed())
+		{
+			std::cout << "SceneGame::update::End of the game" << std::endl;
+			_closeSignal = true;
 		}
 	}
 
@@ -143,6 +165,11 @@ void SceneGame::render(sf::RenderTarget* target)
 	if (_showBox)
 	{
 		_box->render(target);
+	}
+
+	if (_showDeath)
+	{
+		_death->render(target);
 	}
 
 	Scene::render(target);

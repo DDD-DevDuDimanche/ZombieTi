@@ -44,7 +44,10 @@
     <ClCompile Include="TextureLoader.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="InterfaceBox.cpp" />
+    <ClCompile Include="InterfaceBox.cpp">
+      <Filter>Gui\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceDeath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -112,6 +115,9 @@
     <ClInclude Include="TextureLoader.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="InterfaceBox.h" />
+    <ClInclude Include="InterfaceBox.h">
+      <Filter>Gui\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceDeath.h" />
   </ItemGroup>
 </Project>

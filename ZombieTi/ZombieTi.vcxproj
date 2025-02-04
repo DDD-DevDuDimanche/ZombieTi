@@ -99,6 +99,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="InterfaceBox.cpp" />
+    <ClCompile Include="InterfaceDeath.cpp" />
     <ClCompile Include="InterfaceShop.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="InterfaceBox.h" />
+    <ClInclude Include="InterfaceDeath.h" />
     <ClInclude Include="InterfaceShop.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
