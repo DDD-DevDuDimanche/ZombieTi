@@ -107,6 +107,7 @@
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneMainMenu.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="pch.cpp">
@@ -131,6 +132,7 @@
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneMainMenu.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="Weapon.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scene.h" />

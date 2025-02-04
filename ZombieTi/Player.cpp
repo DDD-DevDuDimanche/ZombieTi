@@ -8,11 +8,13 @@ Player::Player(sf::Vector2f position, Map* map)
 	std::cout << "Player::Player::Texture loaded" << std::endl;
 	_sprite->setPosition(position);
 	_mapReference = map;
+	_weapon = new Weapon(Weapon::WeaponData[0].getName(), Weapon::WeaponData[0].getDamage());
 	std::cout << "Player::Player::Creation done" << std::endl;
 }
 
 Player::~Player()
 {
+	delete _weapon;
 	std::cout << "Player::~Player::Unload done" << std::endl;
 }
 
@@ -47,6 +49,16 @@ void Player::render(sf::RenderTarget* target)
 sf::Vector2f Player::getPosition()
 {
 	return _sprite->getPosition();
+}
+
+Weapon& Player::getWeapon()
+{
+	return *_weapon;
+}
+
+void Player::setWeapon(Weapon* weapon)
+{
+	_weapon = weapon;
 }
 
 void Player::move(sf::Vector2f direction)

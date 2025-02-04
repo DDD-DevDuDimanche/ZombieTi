@@ -48,6 +48,9 @@
       <Filter>Gui\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="InterfaceDeath.cpp" />
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -70,6 +73,9 @@
     </Filter>
     <Filter Include="Gui\Interfaces">
       <UniqueIdentifier>{caeedef2-2f99-486b-9891-79b171e90a36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapons">
+      <UniqueIdentifier>{4cdccb20-59f4-4468-a226-a1090f4960aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -119,5 +125,8 @@
       <Filter>Gui\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="InterfaceDeath.h" />
+    <ClInclude Include="Weapon.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

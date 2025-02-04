@@ -2,7 +2,7 @@
 #include "SceneGame.h"
 
 SceneGame::SceneGame(sf::RenderWindow* _window, std::stack<Scene*>* scenes) 
-	: Scene(_window, scenes), _moneyText(_font), _hpText(_font), _bulletsText(_font)
+	: Scene(_window, scenes), _moneyText(_font), _hpText(_font), _bulletsText(_font), _weaponText(_font)
 {
 	std::cout << "SceneGame::SceneGame::Creation..." << std::endl;
 	_background = new sf::RectangleShape(sf::Vector2f(_windowReference->getSize().x, _windowReference->getSize().y));
@@ -15,7 +15,7 @@ SceneGame::SceneGame(sf::RenderWindow* _window, std::stack<Scene*>* scenes)
 	_showDeath = false;
 
 	_moneyText.setCharacterSize(40);
-	_moneyText.setFillColor(sf::Color(255, 255, 0, 255));
+	_moneyText.setFillColor(sf::Color::White);
 	_moneyText.setString(std::to_string(0));
 	_moneyText.setPosition({ Tile::TILE_SIZE + 10, _windowReference->getSize().y - Tile::TILE_SIZE });
 	_moneyShape.setSize({ Tile::TILE_SIZE, Tile::TILE_SIZE });
@@ -24,7 +24,7 @@ SceneGame::SceneGame(sf::RenderWindow* _window, std::stack<Scene*>* scenes)
 	std::cout << "SceneGame::SceneGame::Money Texture loaded" << std::endl;
 
 	_hpText.setCharacterSize(40);
-	_hpText.setFillColor(sf::Color(255, 0, 0, 255));
+	_hpText.setFillColor(sf::Color::White);
 	_hpText.setString(std::to_string(30));
 	_hpText.setPosition({ Tile::TILE_SIZE * 5 + 10, _windowReference->getSize().y - Tile::TILE_SIZE });
 	_hpShape.setSize({ Tile::TILE_SIZE, Tile::TILE_SIZE });
@@ -33,7 +33,7 @@ SceneGame::SceneGame(sf::RenderWindow* _window, std::stack<Scene*>* scenes)
 	std::cout << "SceneGame::SceneGame::HP Texture loaded" << std::endl;
 
 	_bulletsText.setCharacterSize(40);
-	_bulletsText.setFillColor(sf::Color(255, 255, 255, 255));
+	_bulletsText.setFillColor(sf::Color::White);
 	_bulletsText.setString(std::to_string(10));
 	_bulletsText.setPosition({ Tile::TILE_SIZE * 8 + 10, _windowReference->getSize().y - Tile::TILE_SIZE });
 	_bulletsShape.setSize({ Tile::TILE_SIZE, Tile::TILE_SIZE });
@@ -41,11 +41,16 @@ SceneGame::SceneGame(sf::RenderWindow* _window, std::stack<Scene*>* scenes)
 	_bulletsShape.setPosition({ Tile::TILE_SIZE * 7, _windowReference->getSize().y - Tile::TILE_SIZE });
 	std::cout << "SceneGame::SceneGame::Bullets Texture loaded" << std::endl;
 
+	_weaponText.setCharacterSize(40);
+	_weaponText.setFillColor(sf::Color::White);
+	_weaponText.setString(_player->getWeapon().getName());
+	_weaponText.setPosition({ Tile::TILE_SIZE * 9 + 10, _windowReference->getSize().y - Tile::TILE_SIZE });
+
 	_luck = 0;
 	std::cout << "SceneGame::SceneGame::Creation done" << std::endl;
 
 	_shop = new InterfaceShop(_windowReference, _font, &_moneyText, &_hpText, &_bulletsText, _luck);
-	_box = new InterfaceBox(_windowReference, _font, &_moneyText, _luck);
+	_box = new InterfaceBox(_windowReference, _font, &_moneyText, _luck, _player);
 	_death = new InterfaceDeath(_windowReference, _font);
 }
 
@@ -82,9 +87,12 @@ void SceneGame::update(float& dt)
 			{
 			case TileType::ZOMBIE:
 				std::cout << "SceneGame::update::Interaction with Zombie Tile" << std::endl;
-				_moneyText.setString(std::to_string(money + 5));
-				_hpText.setString(std::to_string(hp - 2));
-				_bulletsText.setString(std::to_string(bullets - 1));
+				if (bullets > 0)
+				{
+					_moneyText.setString(std::to_string(money + _player->getWeapon().getDamage()));
+					_hpText.setString(std::to_string(hp - 2));
+					_bulletsText.setString(std::to_string(bullets - 1));
+				}
 				break;
 			case TileType::BOX:
 				std::cout << "SceneGame::update::Interaction with Box Tile" << std::endl;
@@ -122,6 +130,7 @@ void SceneGame::update(float& dt)
 		{
 			_box->getButtons().erase("confirm");
 			_box->getButtons().erase("cancel");
+			_weaponText.setString(_player->getWeapon().getName());
 			_showBox = false;
 		}
 	}
@@ -156,6 +165,7 @@ void SceneGame::render(sf::RenderTarget* target)
 	target->draw(_hpText);
 	target->draw(_bulletsShape);
 	target->draw(_bulletsText);
+	target->draw(_weaponText);
 	
 	if (_showShop)
 	{

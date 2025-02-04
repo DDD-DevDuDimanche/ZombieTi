@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "InterfaceBox.h"
 
-InterfaceBox::InterfaceBox(sf::RenderWindow* window, sf::Font font, sf::Text* moneyText, int& luckReference) 
+InterfaceBox::InterfaceBox(sf::RenderWindow* window, sf::Font font, sf::Text* moneyText, int& luckReference, Player* playerReference)
 	: Interface(window, font), _moneyTextReference(moneyText), _luckReference(luckReference)
 {
 	std::cout << "InterfaceBox::InterfaceBox::Creation..." << std::endl;
@@ -23,12 +23,8 @@ InterfaceBox::InterfaceBox(sf::RenderWindow* window, sf::Font font, sf::Text* mo
 		_container.getPosition().y + 30
 	));
 
-	_texts["weapon"] = new sf::Text(_font, "Test", 50);
+	_texts["weapon"] = new sf::Text(_font, "", 50);
 	_texts["weapon"]->setFillColor(sf::Color::Blue);
-	_texts["weapon"]->setPosition(sf::Vector2f(
-		_container.getPosition().x + _container.getGlobalBounds().size.x / 2 - _texts["weapon"]->getGlobalBounds().size.x / 2,
-		_container.getPosition().y + _container.getGlobalBounds().size.y / 2 - _texts["weapon"]->getGlobalBounds().size.y / 2
-	));
 
 	_buttons["close"] = new Button(sf::Vector2f(
 		_container.getPosition().x + _container.getGlobalBounds().size.x - 130,
@@ -41,6 +37,8 @@ InterfaceBox::InterfaceBox(sf::RenderWindow* window, sf::Font font, sf::Text* mo
 		_container.getPosition().x + _container.getGlobalBounds().size.x / 2 - 100,
 		_container.getPosition().y + _container.getGlobalBounds().size.y - 80
 	), _font, "Buy -> 30$", true);
+
+	_playerReference = playerReference;
 }
 
 void InterfaceBox::update(sf::Vector2f& mousePosition)
@@ -54,20 +52,26 @@ void InterfaceBox::update(sf::Vector2f& mousePosition)
 
 	if (_buttons.count("exchange") && _buttons["exchange"]->isPressed() && !lastClick && actualClick && money >= 30)
 	{
+		// Get a roll between 0 and 3
+		int randomRoll = (rand() % 4) + _luckReference;
+		_weaponGenerated = new Weapon(Weapon::WeaponData[randomRoll].getName(), Weapon::WeaponData[randomRoll].getDamage());
+		_texts["weapon"]->setString(_weaponGenerated->getName() + " (" + std::to_string(_weaponGenerated->getDamage()) + ")");
+		_texts["weapon"]->setPosition(sf::Vector2f(
+			_container.getPosition().x + _container.getGlobalBounds().size.x / 2 - _texts["weapon"]->getGlobalBounds().size.x / 2,
+			_container.getPosition().y + _container.getGlobalBounds().size.y / 2 - _texts["weapon"]->getGlobalBounds().size.y / 2
+		));
 		_moneyTextReference->setString(std::to_string(money - 30));
 		_purchaseDone = true;
 	}
 
 	if (_buttons.count("confirm") && _buttons["confirm"]->isPressed() && !lastClick && actualClick)
 	{
-		// Change the weapon of the player
-		std::cout << "confirm button clicked" << std::endl;
+		_playerReference->setWeapon(_weaponGenerated);
 		reset();
 	}
 
 	if ((_buttons["close"]->isPressed() || (_buttons.count("cancel") && _buttons["cancel"]->isPressed())) && !lastClick && actualClick)
 	{
-		std::cout << "close or cancel button clicked" << std::endl;
 		reset();
 	}
 
@@ -102,6 +106,7 @@ int InterfaceBox::getMoneyReference()
 
 void InterfaceBox::reset()
 {
+	_weaponGenerated = NULL;
 	_purchaseDone = false;
 	_buttons["exchange"] = new Button(sf::Vector2f(
 		_container.getPosition().x + _container.getGlobalBounds().size.x / 2 - 100,

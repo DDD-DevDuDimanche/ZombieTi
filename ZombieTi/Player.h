@@ -3,8 +3,9 @@
 
 #include "Entity.h"
 #include "Tile.h"
-#include "Map.h";
+#include "Map.h"
 #include "TextureLoader.h"
+#include "Weapon.h"
 
 class Player : public Entity
 {
@@ -16,12 +17,19 @@ public:
 	void render(sf::RenderTarget* target);
 
 	sf::Vector2f getPosition();
+	Weapon& getWeapon();
+	void setWeapon(Weapon* weapon);
 
 private:
 	////////////////////////////////////////////////////////////
 	/// Reference of the game map scene
 	////////////////////////////////////////////////////////////
 	Map* _mapReference;
+
+	////////////////////////////////////////////////////////////
+	/// Weapon of the player
+	////////////////////////////////////////////////////////////
+	Weapon* _weapon;
 
 	////////////////////////////////////////////////////////////
 	/// Move the sprite by a direction between -1 and 1

@@ -7,6 +7,7 @@
 #include <stack>
 #include <sstream>
 #include <assert.h>
+#include <random>
 
 // SFML
 #include <SFML/Graphics.hpp>
