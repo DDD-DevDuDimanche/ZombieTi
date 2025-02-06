@@ -1,14 +1,15 @@
+#pragma once
 #ifndef INTERFACE_BOX_H
 #define INTERFACE_BOX_H
 
-#include "Interface.h"
+#include "InterfaceHUD.h"
 #include "Player.h"
 
 class InterfaceBox : public Interface
 {
 public:
-	InterfaceBox(sf::RenderWindow* window, sf::Font font, sf::Text* moneyText, int& luckReference, Player* playerReference);
-	~InterfaceBox() {};
+	InterfaceBox(sf::RenderWindow* window, sf::Font font, Player* player, InterfaceHUD* hud);
+	~InterfaceBox();
 
 	void update(sf::Vector2f& mousePosition);
 	void render(sf::RenderTarget* target);
@@ -16,10 +17,8 @@ public:
 	int getMoneyReference();
 
 private:
-	sf::RectangleShape _container;
-	sf::Text* _moneyTextReference;
-	int& _luckReference;
 	Player* _playerReference;
+	InterfaceHUD* _hudReference;
 	bool _purchaseDone;
 	Weapon* _weaponGenerated;
 

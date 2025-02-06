@@ -24,9 +24,9 @@ GameState::GameState()
 {
 	std::cout << "GameState::Loading start" << std::endl;
 
-	_window = &(new core::Window(NAME))->getInstance();
+	_window = sf::RenderWindow(sf::VideoMode({ 1280, 768 }), NAME);
 	_dt = 0;
-	_scenes.push(new SceneMainMenu(_window, &_scenes));
+	_scenes.push(new SceneMainMenu(&_window, &_scenes));
 
 	std::cout << "GameState::Loading done" << std::endl;
 }
@@ -35,7 +35,6 @@ GameState::~GameState()
 {
 	std::cout << "GameState::Clear data" << std::endl;
 	
-	delete _window;
 	while (!_scenes.empty())
 	{
 		delete _scenes.top();
@@ -47,7 +46,7 @@ GameState::~GameState()
 
 void GameState::run()
 {
-	while (_window->isOpen())
+	while (_window.isOpen())
 	{
 		update();
 		render();
@@ -59,12 +58,12 @@ void GameState::run()
 ================================================== */
 void GameState::update()
 {
-	while (const std::optional event = _window->pollEvent())
+	while (const std::optional event = _window.pollEvent())
 	{
 		// Windows Closing button event
 		if (event->is<sf::Event::Closed>())
 		{
-			_window->close();
+			_window.close();
 		}
 	}
 
@@ -88,19 +87,19 @@ void GameState::update()
 	}
 	else
 	{
-		_window->close();
+		_window.close();
 	}
 }
 
 void GameState::render()
 {
-	_window->clear();
+	_window.clear();
 
 	// Render the last scene
 	if (!_scenes.empty())
 	{
-		_scenes.top()->render(_window);
+		_scenes.top()->render(&_window);
 	}
 
-	_window->display();
+	_window.display();
 }

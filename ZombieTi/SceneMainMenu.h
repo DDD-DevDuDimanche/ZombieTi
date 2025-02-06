@@ -1,3 +1,4 @@
+#pragma once
 #ifndef SCENE_MAIN_MENU_H
 #define SCENE_MAIN_MENU_H
 

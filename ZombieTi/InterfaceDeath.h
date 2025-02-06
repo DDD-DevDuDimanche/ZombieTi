@@ -1,3 +1,4 @@
+#pragma once
 #ifndef INTERFACE_DEATH_H
 #define INTERFACE_DEATH_H
 
@@ -11,9 +12,6 @@ public:
 
 	void update(sf::Vector2f& mousePosition);
 	void render(sf::RenderTarget* target);
-
-private:
-	sf::RectangleShape _container;
 };
 
 #endif INTERFACE_DEATH_H

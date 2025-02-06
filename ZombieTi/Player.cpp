@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Player.h"
 
-Player::Player(sf::Vector2f position, Map* map)
+Player::Player(sf::Vector2f position, Map* map) : _money(0), _hp(20), _bullets(10), _luck(0)
 {
 	std::cout << "Player::Player::Creation..." << std::endl;
 	_sprite = new sf::Sprite(TextureLoader::loadTexture("Assets/player.png"));
@@ -59,6 +59,46 @@ Weapon& Player::getWeapon()
 void Player::setWeapon(Weapon* weapon)
 {
 	_weapon = weapon;
+}
+
+int& Player::getMoney()
+{
+	return _money;
+}
+
+int& Player::getHp()
+{
+	return _hp;
+}
+
+int& Player::getBullets()
+{
+	return _bullets;
+}
+
+int& Player::getLuck()
+{
+	return _luck;
+}
+
+void Player::addMoney(int amount)
+{
+	_money += amount;
+}
+
+void Player::addHp(int amount)
+{
+	_hp += amount;
+}
+
+void Player::addBullets(int amount)
+{
+	_bullets += amount;
+}
+
+void Player::addLuck(int amount)
+{
+	_luck += amount;
 }
 
 void Player::move(sf::Vector2f direction)

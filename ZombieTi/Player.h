@@ -1,3 +1,4 @@
+#pragma once
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -20,16 +21,27 @@ public:
 	Weapon& getWeapon();
 	void setWeapon(Weapon* weapon);
 
+	int& getMoney();
+	int& getHp();
+	int& getBullets();
+	int& getLuck();
+
+	void addMoney(int amount);
+	void addHp(int amount);
+	void addBullets(int amount);
+	void addLuck(int amount);
+
 private:
 	////////////////////////////////////////////////////////////
 	/// Reference of the game map scene
 	////////////////////////////////////////////////////////////
 	Map* _mapReference;
 
-	////////////////////////////////////////////////////////////
-	/// Weapon of the player
-	////////////////////////////////////////////////////////////
 	Weapon* _weapon;
+	int _money;
+	int _hp;
+	int _bullets;
+	int _luck;
 
 	////////////////////////////////////////////////////////////
 	/// Move the sprite by a direction between -1 and 1

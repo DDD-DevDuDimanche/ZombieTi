@@ -47,9 +47,14 @@
     <ClCompile Include="InterfaceBox.cpp">
       <Filter>Gui\Interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="InterfaceDeath.cpp" />
     <ClCompile Include="Weapon.cpp">
       <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceDeath.cpp">
+      <Filter>Gui\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceHUD.cpp">
+      <Filter>Gui\Interfaces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,9 +129,14 @@
     <ClInclude Include="InterfaceBox.h">
       <Filter>Gui\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="InterfaceDeath.h" />
     <ClInclude Include="Weapon.h">
       <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceDeath.h">
+      <Filter>Gui\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceHUD.h">
+      <Filter>Gui\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
